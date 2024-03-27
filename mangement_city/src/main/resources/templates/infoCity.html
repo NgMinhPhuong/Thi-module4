@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2 class="display-4" th:text="'Thành phố ' + ${city.getName()}"></h2>
+    <p class="lead" th:text="'Tên: ' + ${city.getName()}"></p>
+    <p class="lead" th:text="'Quốc gia: ' + ${city.getCountry().getName()}"></p>
+    <p class="lead" th:text="'Diện tích: ' + ${city.getDt()}"></p>
+    <p class="lead" th:text="'Dân số: ' + ${city.getDs()}"></p>
+    <p class="lead" th:text="'GDP: ' + ${city.getGdp()}"></p>
+    <p class="lead">Giới thiệu:</p>
+    <p class="lead" th:text="${city.getDescription()}"></p>
+    <a th:href="@{'/city/edit?id=' + ${city.id}}" class="btn btn-warning">Chỉnh sửa</a>
+    <a th:href="@{'/city/delete?id=' + ${city.id}}" class="btn btn-danger">Xoá</a>
+    <a th:href="@{/city}" class="btn btn-secondary">Danh sách thành phố</a>
+</div>
+</body>
+</html>

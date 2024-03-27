@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<a th:href="@{/city/create}">Thêm thành phố</a>
+<table class="table table-dark">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Thành Phố</th>
+        <th scope="col">Quốc Gia</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="city, s : ${cities}">
+        <th scope="row" th:text="${s.count}"></th>
+        <td><a th:text="${city.getName()}" th:href="@{'/city/info?id=' +${city.getId()}}"></a></td>
+        <td th:text="${city.getCountry().getName()}"></td>
+        <td>
+                <span>
+                    <a class="btn btn-primary" th:href="@{'/city/edit?id=' + ${city.id}}">Chỉnh sửa</a>
+                    <button class="btn btn-danger" th:onclick="'confirmDelete('+${city.id}+')'">Xoá</button>
+                </span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Thông báo xác nhận -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Xác nhận xoá</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xoá thành phố này?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button id="confirmDeleteButton" type="button" class="btn btn-danger">Xoá</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var deleteCityId;
+
+    function confirmDelete(cityId) {
+        deleteCityId = cityId;
+        $('#confirmDeleteModal').modal('show');
+    }
+
+    $('#confirmDeleteButton').click(function() {
+        // Thực hiện xoá thành phố
+        window.location.href = '/city/delete?id=' + deleteCityId;
+    });
+</script>
+</body>
+</html>

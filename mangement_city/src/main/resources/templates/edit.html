@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <form method="post" th:action="@{/city/edit}" class="form-group">
+        <input type="hidden" name="id" th:value="${city.getId()}">
+        <label for="name">Tên thành phố:</label>
+        <input name="name" th:value="${city.getName()}" class="form-control" id="name"><br>
+        <label for="country">Quốc gia:</label>
+        <select name="country" class="form-control" id="country"><br>
+            <option th:each="country : ${countries}" th:text="${country.getName()}" th:value="${country.getId()}"></option>
+        </select><br>
+        <label for="dt">Diện tích:</label>
+        <input name="dt" th:value="${city.getDt()}" class="form-control" id="dt"><br>
+        <label for="ds">Dân số:</label>
+        <input name="ds" th:value="${city.getDs()}" class="form-control" id="ds"><br>
+        <label for="gdp">GDP:</label>
+        <input name="gdp" th:value="${city.getGdp()}" class="form-control" id="gdp"><br>
+        <label for="description">Giới thiệu:</label>
+        <input name="description" th:value="${city.getDescription()}" class="form-control" id="description"><br>
+        <button type="submit" class="btn btn-primary">Sửa</button>
+    </form>
+    <a th:href="@{/city}" class="btn btn-secondary">Danh sách thành phố</a>
+</div>
+</body>
+</html>
