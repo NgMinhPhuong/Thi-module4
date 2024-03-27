@@ -5,6 +5,10 @@
     <title>Title</title>
     <!-- CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -17,8 +21,42 @@
     <p class="lead">Giới thiệu:</p>
     <p class="lead" th:text="${city.getDescription()}"></p>
     <a th:href="@{'/city/edit?id=' + ${city.id}}" class="btn btn-warning">Chỉnh sửa</a>
-    <a th:href="@{'/city/delete?id=' + ${city.id}}" class="btn btn-danger">Xoá</a>
+    <button class="btn btn-danger" th:onclick="'confirmDelete('+${city.id}+')'">Xoá</button>
     <a th:href="@{/city}" class="btn btn-secondary">Danh sách thành phố</a>
 </div>
+<!-- Thông báo xác nhận -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Xác nhận xoá</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xoá thành phố này?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button id="confirmDeleteButton" type="button" class="btn btn-danger">Xoá</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var deleteCityId;
+
+    function confirmDelete(cityId) {
+        deleteCityId = cityId;
+        $('#confirmDeleteModal').modal('show');
+    }
+
+    $('#confirmDeleteButton').click(function() {
+        // Thực hiện xoá thành phố
+        window.location.href = '/city/delete?id=' + deleteCityId;
+    });
+</script>
 </body>
 </html>
